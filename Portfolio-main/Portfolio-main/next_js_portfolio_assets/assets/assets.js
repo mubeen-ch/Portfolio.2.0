@@ -38,6 +38,13 @@ import right_arrow_bold_dark from './right-arrow-bold-dark.png';
 import Aboutpic from './aboutpic.jpeg';
 import profilePicture from './mubeenprofile.jpeg'
 
+
+import RBU from './rbu.png'
+import Hearsty from './heartsy.png'
+import Atlantis from './atlantis.png'
+import ChatWidget from './chat-widget.png'
+import CreditRepair from './credit-repair.png'
+
 export const assets = {
     profilePicture ,
     Aboutpic,
@@ -82,6 +89,38 @@ export const assets = {
 
 export const workData = [
     {
+        title: 'Heartsy',
+        description: 'Heartsy is a Behavioral Assestment Tool that connects teams and leaders around one shared pursuit: excellence. Not through manipulation, but through care, trust, and love.',
+        bgImage: '/heartsy.png',
+        frameworks:'Reactjs , Nodejs, Python ',
+        link:'https://heartsy-web-fe.vercel.app/',
+
+    },
+    {
+        title: 'Chat-widget ',
+        description: 'A comprehensive dashboard for managing and deploying hybrid support teams (AI & Human). It allows for easy widget integration and direct agent training to optimize user experience within any app.',
+        bgImage: '/chat-widget.png',
+        frameworks:'NextJs ,Python/Django ',
+        link:'https://chat-widget-fe.vercel.app/',
+
+    },
+    {
+        title: 'Atlantis ',
+        description: 'A comprehensive Saudi-based interior design and e-commerce platform featuring a bilingual interface, integrated product shop, and secure online payments. It utilizes advanced role management to provide a tailored experience for both service providers and homeowners ',
+        bgImage: '/atlantis.png',
+        frameworks:'NextJs Full-Stack',
+        link:'https://atlantis.sa/en',
+
+    },
+    {
+        title: 'Rbu-garage mechanic',
+        description: 'An international garage management platform for the UK market that supports hybrid booking (pre-booked and walk-in) and granular user permissions. It features a transparent customer portal for tracking end-to-end vehicle service history and maintenance details. ',
+        bgImage: '/rbu.png',
+        frameworks:'NextJs ',
+        link:'https://garage-mechanic-crm.vercel.app/',
+
+    },
+    {
         title: 'Hurak ',
         description: 'A UK based company provide paid courses of all kind just like udemy',
         bgImage: '/hurak-learning.png',
@@ -115,6 +154,13 @@ export const workData = [
 ]
 
 export const inProcess = [
+        {
+        title: 'Credit Repair',
+        description: 'An American-based credit management ecosystem that allows users and administrators to monitor credit profiles and automate the generation of formal dispute documentation. It bridges the gap between complex credit data and actionable, document-driven resolution strategies.',
+        bgImage: '/credit-repair.png',
+        frameworks:'Reactjs , Nodejs ',
+        link:'https://ai-credit-repair-fe.vercel.app/dashboard',
+    },
     {
         title: 'Hire On Chain',
         description: 'Monolithic web design framework i have done all the frontend-end of this still is in development process',
@@ -126,7 +172,7 @@ export const inProcess = [
     {
         title: 'SPIS',
         description: 'FYP(Not Hoisted) Serves as a middleware between buyers and sellers',
-        bgImage: 'fyp01.png',
+        bgImage: '/fyp01.png',
         frameworks:'ReactNative , Nodejs , MongoDb , Express',
         link:'#'
     },

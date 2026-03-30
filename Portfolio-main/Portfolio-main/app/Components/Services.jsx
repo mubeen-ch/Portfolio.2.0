@@ -4,106 +4,104 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const Services = () => {
-  // Motion Variants
+  // Refined Animation Variants
   const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
   const staggerContainer = {
-    hidden: { opacity: 1 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.2 },
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
     },
   };
 
   return (
     <motion.div
       id="services"
-      className="w-full px-[6%] py-16 scroll-mt-20"
+      className="w-full px-[8%] py-20 scroll-mt-24"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.1 }}
       variants={staggerContainer}
     >
-      {/* Headings */}
-      <motion.h4
-        className="text-center mb-2 text-2xl font-Ovo"
+      {/* Section Headings */}
+      <motion.h4 
         variants={fadeInUp}
+        className="text-center mb-2 text-lg font-Ovo tracking-widest uppercase text-gray-500"
       >
-        What I Offer
+        Capabilities
       </motion.h4>
 
-      <motion.h2
-        className="text-center text-5xl font-bold text-black-300 dark:text-white"
+      <motion.h2 
         variants={fadeInUp}
+        className="text-center text-4xl md:text-5xl font-Ovo font-medium"
       >
-        My Services
+        Solutions & Services
       </motion.h2>
 
-      <motion.p
-        className="text-center max-w-4xl mx-auto my-6 font-Ovo text-gray-600 dark:text-gray-300"
+      <motion.p 
         variants={fadeInUp}
+        className="text-center max-w-3xl mx-auto mt-6 mb-16 font-Ovo text-lg leading-relaxed text-gray-600 dark:text-gray-300"
       >
-        I’ve gained a deep understanding of JavaScript, working extensively with
-        React.js, Redux, Context API, Tailwind CSS, and various third-party
-        libraries. Additionally, I’ve explored Node.js, Nest.js, and Next.js,
-        enhancing my skills in frontend and backend development while mastering
-        state management, styling, and scalable application architecture.
+        I specialize in building **enterprise-grade frontend architectures** and high-performance web applications. My focus is on creating maintainable systems using React and Next.js, ensuring state management is optimized for speed and components are built for scalability.
       </motion.p>
 
-      {/* Services Section */}
+      {/* Services Grid - Optimized for Mobile Stacking */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 my-14"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
         variants={staggerContainer}
       >
         {serviceData.map(({ icon, title, description }, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="border border-gray-300 dark:border-white rounded-3xl px-8 py-10 hover:shadow-xl hover:bg-lightHover hover:-translate-y-1 transition duration-500 dark:hover:bg-darkHover"
+            variants={fadeInUp}
+            whileHover={{ y: -8 }}
+            className="group relative p-10 border border-gray-300 dark:border-white/20 rounded-3xl cursor-default hover:bg-lightHover/30 transition-all duration-300 dark:hover:bg-darkHover/40"
           >
-            <Image src={icon} alt={`${title} icon`} className="w-10 h-10" />
-            <h3 className="text-lg font-semibold mt-4 text-gray-800 dark:text-white">
+            <div className="bg-black dark:bg-white p-3 rounded-xl w-fit mb-6 group-hover:scale-110 transition-transform duration-300">
+               <Image src={icon} alt="" className="w-6 invert dark:invert-0" />
+            </div>
+            <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-white">
               {title}
             </h3>
-            <p className="text-sm mt-2 text-gray-500 dark:text-gray-300 leading-5">
+            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
               {description}
             </p>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Skills Heading */}
-      <motion.h2
-        className="text-center text-5xl font-bold text-black-300 dark:text-white"
-        variants={fadeInUp}
-      >
-        Skills
-      </motion.h2>
+      {/* Skills Section */}
+      <motion.div variants={fadeInUp} className="text-center mb-12">
+         <h4 className="text-lg font-Ovo tracking-widest uppercase text-gray-500 mb-2">Technical Proficiency</h4>
+         <h2 className="text-3xl md:text-4xl font-Ovo font-medium">Core Tech Stack</h2>
+      </motion.div>
 
-      {/* Skills Grid */}
+      {/* Skills Grid - Responsive Grid sizing */}
       <motion.div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center justify-center my-14"
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"
         variants={staggerContainer}
       >
         {skills.map((skill, index) => (
           <motion.div
             key={index}
             variants={fadeInUp}
-            className="flex items-center gap-3 p-4 border border-gray-300 dark:border-white rounded-xl bg-white dark:bg-transparent shadow-sm hover:-translate-y-1 transition duration-300 cursor-pointer"
+            whileHover={{ scale: 1.02 }}
+            className="flex items-center gap-4 p-4 border border-gray-200 dark:border-white/10 rounded-2xl bg-white dark:bg-darkHover/20 shadow-sm hover:shadow-md transition-all cursor-default"
           >
-            <Image
-              src={skill.bgImage}
-              alt={skill.title}
-              width={40}
-              height={40}
-              className="rounded-md bg-white"
-            />
-            <h3 className="text-base font-medium text-gray-800 dark:text-white">
+            <div className="flex-shrink-0 p-1 bg-gray-50 dark:bg-white/5 rounded-lg">
+              <Image
+                src={skill.bgImage}
+                alt={skill.title}
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </div>
+            <h3 className="text-sm md:text-base font-medium text-gray-800 dark:text-white">
               {skill.title}
             </h3>
           </motion.div>

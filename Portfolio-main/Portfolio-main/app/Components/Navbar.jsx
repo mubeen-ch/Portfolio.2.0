@@ -1,63 +1,113 @@
 import { assets } from '@/next_js_portfolio_assets/assets/assets'
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const Navbar = ({isDarkMode , setIsDarkMode}) => {
-    const [isScroll , setIsScroll] = useState(false);
-    const sideMenuRef = useRef();
-    const openMenu = () =>{
-       sideMenuRef.current.style.transform = 'translateX(-16rem)';
-    }
-    const closeMenu = () =>{
-       sideMenuRef.current.style.transform = 'translateX(16rem)';
-    }
+const Navbar = ({ isDarkMode, setIsDarkMode }) => {
+    const [isScroll, setIsScroll] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    useEffect(()=>{
-        window.addEventListener ('scroll',()=>{
-            if(scrollY > 50){
-           setIsScroll(true)
-            }else{
-                setIsScroll(false)
-            }
-        })
-    },[])
-  return (
-   
-    <>
-    <div className='fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden'>
-<Image src={assets.header_bg_color} alt='bg-header' className='w-full'/>
-    </div>
-    <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 ${isScroll ? "bg-gray300 bg-opacity-50 backdrop-blur-lg shadow-sm dark:bg-darkTheme dark:shadow-white/20":''}`}>
-        <a href="">
-            <Image src={isDarkMode? assets.logo_dark:assets.logo} className='w-16 cursor-pointer mr-14' alt='logo'/>
-        </a>
-        <ul className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3  ${
-         isScroll ? "": 'bg-white shadow-lg bg-opacity-50 dark:border dark:border-white/50 dark:bg-transparent'}`}>
-            <li><a className=' font-Ovo text-sm lg:text-xl ' href="#top">Home</a></li>
-            <li><a className=' font-Ovo text-sm lg:text-xl' href="#about">About me</a></li>
-            <li><a className=' font-Ovo text-sm lg:text-xl' href="#services">Services</a></li>
-            <li><a className=' font-Ovo text-sm lg:text-xl' href="#work">My Work</a></li>
-            <li><a className=' font-Ovo text-sm lg:text-xl' href="#contact">Contact me</a></li>
-        </ul>
-        <div className=' flex items-center gap-4'>
-            <button onClick={()=> setIsDarkMode(prev => !prev)}><Image src={isDarkMode? assets.sun_icon : assets.moon_icon} alt='moonpic' className='w-6' /></button>
-            <a href="contact" className='font-Ovo hidden lg:flex items-center gap-3 px-10 py-2.5 border border-gray-500 ml-4 rounded-full dark:border-white/50'>Contact <Image src={isDarkMode? assets.arrow_icon_dark:assets.arrow_icon} className='w-3' alt='arrow'/></a>
+    // Toggle menu state instead of direct ref manipulation
+    const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
-            <button className='block md:hidden ml-3' onClick={openMenu}><Image src={isDarkMode? assets.menu_white:assets.menu_black} alt='' className='w-6 '/></button>
-        </div>
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScroll(window.scrollY > 50);
+        };
+        window.addEventListener('scroll', handleScroll);
+        // Senior practice: Always clean up event listeners
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-        {/* mobile menu */}
-        <ul ref={sideMenuRef} className='flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 transition duration-500 dark:bg-darkHover dark:text-white'>
-            <div className='absolute right-6 top-6' onClick={closeMenu}> <Image src={isDarkMode? assets.close_white: assets.close_black} alt='' className='w-5 cursor-pointer'/></div>
-        <li><a className=' font-Ovo ' href="#top">Home</a></li>
-            <li><a className=' font-Ovo ' onClick={closeMenu} href="#about">About me</a></li>
-            <li><a className=' font-Ovo ' onClick={closeMenu} href="#services">Services</a></li>
-            <li><a className=' font-Ovo ' onClick={closeMenu} href="#work">My Work</a></li>
-            <li><a className=' font-Ovo ' onClick={closeMenu} href="#contact">Contact me</a></li>
-        </ul>
-    </nav>
-    </>
-  )
+    const navLinks = [
+        { name: 'Home', href: '#up' },
+        { name: 'About', href: '#about' },
+        { name: 'Services', href: '#services' },
+        { name: 'Work', href: '#work' },
+        { name: 'Contact', href: '#contact' },
+    ];
+
+    return (
+        <>
+            {/* Background Accent */}
+            <div className='fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden opacity-50'>
+                <Image src={assets.header_bg_color} alt='' className='w-full' priority />
+            </div>
+
+            <nav className={`w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50 transition-all duration-300 ${
+                isScroll 
+                ? "bg-white/70 backdrop-blur-md shadow-sm dark:bg-darkTheme/70 dark:shadow-white/5" 
+                : ""
+            }`}>
+                {/* Logo */}
+                <a href="#up">
+                    <Image 
+                        src={isDarkMode ? assets.logo_dark : assets.logo} 
+                        className='w-20 cursor-pointer transition-transform hover:scale-105' 
+                        alt='Logo'
+                    />
+                </a>
+
+                {/* Desktop Navigation */}
+                <ul className={`hidden md:flex items-center gap-8 lg:gap-10 rounded-full px-12 py-3 transition-all ${
+                    isScroll 
+                    ? "bg-transparent" 
+                    : "bg-white/40 shadow-sm border border-white/20 backdrop-blur-sm dark:bg-transparent dark:border-white/10"
+                }`}>
+                    {navLinks.map((link) => (
+                        <li key={link.name}>
+                            <a className='font-Ovo text-sm uppercase tracking-wider hover:text-gray-500 dark:hover:text-gray-400 transition-colors' href={link.href}>
+                                {link.name}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+
+                {/* Action Controls */}
+                <div className='flex items-center gap-4'>
+                    <button 
+                        onClick={() => setIsDarkMode(prev => !prev)} 
+                        className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
+                        aria-label="Toggle Dark Mode"
+                    >
+                        <Image src={isDarkMode ? assets.sun_icon : assets.moon_icon} alt='' className='w-6' />
+                    </button>
+
+                    <a href="#contact" className='hidden lg:flex items-center gap-3 px-8 py-2.5 border border-gray-500 rounded-full dark:border-white/50 font-Ovo hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300'>
+                        Hire Me
+                        <Image src={isDarkMode ? assets.arrow_icon_dark : assets.arrow_icon} className='w-3' alt='' />
+                    </a>
+
+                    {/* Mobile Menu Toggle */}
+                    <button className='block md:hidden p-2' onClick={toggleMenu}>
+                        <Image src={isDarkMode ? assets.menu_white : assets.menu_black} alt='Menu' className='w-6' />
+                    </button>
+                </div>
+
+                {/* Mobile Menu Side Drawer */}
+                <ul 
+                    className={`flex md:hidden flex-col gap-6 py-20 px-10 fixed top-0 bottom-0 w-72 z-50 h-screen bg-white transition-transform duration-500 ease-in-out dark:bg-darkHover dark:text-white shadow-2xl ${
+                        isMenuOpen ? "right-0" : "-right-80"
+                    }`}
+                >
+                    <button className='absolute right-10 top-8 p-2' onClick={toggleMenu}>
+                        <Image src={isDarkMode ? assets.close_white : assets.close_black} alt='Close' className='w-5' />
+                    </button>
+                    
+                    {navLinks.map((link) => (
+                        <li key={link.name}>
+                            <a 
+                                className='font-Ovo text-xl block hover:translate-x-2 transition-transform' 
+                                onClick={toggleMenu} 
+                                href={link.href}
+                            >
+                                {link.name}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </>
+    )
 }
 
-export default Navbar
+export default Navbar;

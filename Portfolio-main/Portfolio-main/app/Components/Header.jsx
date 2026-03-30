@@ -4,72 +4,93 @@ import React from 'react';
 import { motion } from "framer-motion";
 
 const Header = () => {
+  // Animation Variants for cleaner code and synchronized staggering
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } }
+  };
+
   return (
-    <div id="up" className="w-11/12 max-w-5xl text-center mx-auto h-screen flex flex-col items-center justify-center">
-      {/* Animated Profile Image */}
+    <motion.div 
+      id="up" 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
+      className="w-11/12 max-w-5xl text-center mx-auto h-screen flex flex-col items-center justify-center space-y-6 pt-32"
+    >
+      {/* Profile Image with subtle floating effect */}
       <motion.div
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
+        variants={itemVariants}
+        whileHover={{ scale: 1.05 }}
+        className="relative"
       >
-        <Image src={assets.profilePicture} alt="Profile" className="w-40 rounded-full" />
+        <Image 
+          src={assets.profilePicture} 
+          alt="Mubeen Anees - Senior Frontend Engineer" 
+          className="w-32 md:w-40 rounded-2xl grayscale hover:grayscale-0 transition-all duration-500 shadow-2xl" 
+          priority
+        />
+        <div className="absolute -bottom-2 -right-2 bg-black dark:bg-white p-2 rounded-lg">
+           <Image src={assets.hand_icon} alt="Wave" className="w-5" />
+        </div>
       </motion.div>
 
-      {/* Animated Introduction */}
+      {/* Introduction */}
       <motion.h3
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="flex items-end gap-2 text-xl md:text-2xl mb-3 font-Outfit"
+        variants={itemVariants}
+        className="text-lg md:text-xl font-Outfit text-gray-600 dark:text-gray-400 tracking-wide"
       >
-        Hi! I'm Mubeen Anees 
-        <Image src={assets.hand_icon} alt="Wave" className="w-6" />
+        Mubeen Anees — Senior Frontend Engineer
       </motion.h3>
 
-      {/* Animated Title */}
+      {/* Hero Title */}
       <motion.h1
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.3 }}
-        className="text-3xl sm:text-6xl lg:text-[66px] font-Ovo"
+        variants={itemVariants}
+        className="text-4xl sm:text-6xl lg:text-7xl font-Ovo leading-tight"
       >
-        Frontend Developer based in Lahore/Pakistan.
+        Engineering <span className="italic">scalable</span> & <br /> 
+        high-performance web interfaces.
       </motion.h1>
 
-      {/* Animated Paragraph */}
+      {/* Professional Summary */}
       <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="max-w-2xl mx-auto font-ovo font-Ovo"
+        variants={itemVariants}
+        className="max-w-3xl mx-auto font-Ovo text-lg leading-relaxed text-gray-700 dark:text-gray-300"
       >
-        I am a Full Stack Developer with almost 2 Years of experience specializing in the MERN stack, with a strong expertise in React.js.
+        With over 3 years of specialized experience in the **React ecosystem**, I bridge the gap between complex backend logic and intuitive, pixel-perfect user experiences. Based in Lahore, I build production-ready applications with a focus on performance, accessibility, and clean architecture.
       </motion.p>
 
-      {/* Animated Buttons */}
+      {/* Action Buttons */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.5 }}
-        className="flex flex-col sm:flex-row items-center gap-4 mt-4"
+        variants={itemVariants}
+        className="flex flex-col sm:flex-row items-center gap-5 mt-6"
       >
         <a
           href="#contact"
-          className="px-10 py-3 border border-white rounded-full bg-black text-white flex items-center gap-2 dark:bg-transparent"
+          className="group px-8 py-4 bg-black text-white rounded-full flex items-center gap-3 hover:bg-gray-800 transition-all dark:bg-white dark:text-black"
         >
-          Contact me 
-          <Image src={assets.right_arrow_white} alt="Arrow" className="w-4 mt-1" />
+          Work with me
+          <Image src={assets.right_arrow_white} alt="" className="w-4 group-hover:translate-x-1 transition-transform invert dark:invert-0" />
         </a>
         <a
           href="/Mubeen_resume.pdf"
           download
-          className="px-10 py-3 border rounded-full border-gray-500 flex items-center gap-2 dark:bg-white dark:text-black"
+          className="group px-8 py-4 border border-gray-400 rounded-full flex items-center gap-3 hover:border-black transition-all"
         >
-          My Resume
-          <Image src={assets.download_icon} alt="Download" className="w-4" />
+          Download CV
+          <Image src={assets.download_icon} alt="" className="w-4 group-hover:translate-y-1 transition-transform" />
         </a>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
